@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class TestController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -20,8 +14,6 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::all();
-        return view('post.index', compact('posts'));
     }
 
     /**
@@ -42,22 +34,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        try{
-            
-        $post = new Post();
-        $post->title = $request->title;
-        $post->description = $request->description;
-        $post->user_id = $request->user_id;
-        $post->save();
-        return $post;
-
-        }
-        catch(\Exception $exception){
-            return $exception->getMessage();
-        }
-        // return view('post.index', )
-    
+        //
+        dd($request->all());
     }
 
     /**
