@@ -35,11 +35,18 @@
                                 />
                                 <v-container>
                                     <v-row>
-                                        <v-col cols="12" sm="12" md="12">
+                                        <v-col cols="12" sm="12" md="6">
                                             <v-text-field
                                                 v-model="editedItem.title"
                                                 label="Post title"
                                                 name="title"
+                                            ></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="12" md="6">
+                                            <v-text-field
+                                                v-model="editedItem.user_id"
+                                                label="User_id"
+                                                name="user_id"
                                             ></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="12" md="12">
@@ -49,16 +56,7 @@
                                                 name="description"
                                             ></v-text-field>
                                         </v-col>
-                                        <!-- <v-col
-                    cols="12"
-                    sm="6"
-                    md="12"
-                  >
-                    <v-text-field
-                      v-model="editedItem.fat"
-                      label="Fat (g)"
-                    ></v-text-field>
-                  </v-col> -->
+
                                         <!-- <v-col
                     cols="12"
                     sm="6"
@@ -142,7 +140,7 @@
 </template>
 <script>
 export default {
-    props: ["postUrl", "posts", "csrf_token"],
+    props: ["postUrl", "posts", "csrf_token", "destroy-url"],
     data: () => ({
         dialog: false,
         dialogDelete: false,
@@ -154,7 +152,7 @@ export default {
                 value: "title"
             },
             { text: "Description", value: "description" },
-            // { text: 'Fat (g)', value: 'fat' },
+            { text: "User_id", value: "user_id" },
             // { text: 'Carbs (g)', value: 'carbs' },
             // { text: 'Protein (g)', value: 'protein' },
             { text: "Actions", value: "actions", sortable: false }
@@ -182,6 +180,7 @@ export default {
             val || this.close();
         },
         dialogDelete(val) {
+            console.log("viccc")
             val || this.closeDelete();
         }
     },
@@ -189,26 +188,37 @@ export default {
     created() {},
 
     methods: {
-        initialize() {},
+        initialize() {
+            posts: {
+            }
+        },
+
+        victor() {
+            console.log("hi");
+        },
 
         editItem(item) {
+            console.log("hi");
             this.editedIndex = this.posts.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
         },
 
         deleteItem(item) {
+            console.log("hi");
             this.editedIndex = this.posts.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialogDelete = true;
         },
 
         deleteItemConfirm() {
-            this.posts.splice(this.editedIndex, 1);
-            this.closeDelete();
+            console.log("hi");
+            // this.posts.splice(this.editedIndex, 1);
+            // this.closeDelete();
         },
 
         close() {
+            console.log("hi");
             this.dialog = false;
             this.$nextTick(() => {
                 this.editedItem = Object.assign({}, this.defaultItem);

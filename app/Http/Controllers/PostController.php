@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class PostController extends Controller
 {
@@ -43,21 +44,20 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        try{
-            
-        $post = new Post();
-        $post->title = $request->title;
-        $post->description = $request->description;
-        $post->user_id = $request->user_id;
-        $post->save();
-        return $post;
+        try {
 
-        }
-        catch(\Exception $exception){
+            $post = new Post();
+            $post->title = $request->title;
+            $post->description = $request->description;
+            $post->user_id = $request->user_id;
+            $post->save();
+            // return view('post.index', compact(''));
+            return redirect('post');
+        } catch (\Exception $exception) {
             return $exception->getMessage();
         }
-        // return view('post.index', )
-    
+        // return view('post.index', compact('posts') );
+
     }
 
     /**
@@ -103,5 +103,10 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+        $deletePost = Post::find($id);
+        $deletePost->delete();
+        
+        // return redirect('post' , compact('post'));
+        return Redirect::route('post.index', compact("deletePost"));
     }
 }
